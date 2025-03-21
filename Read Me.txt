@@ -1,0 +1,8 @@
+Instructions.
+
+Installation:
+1) Install this by dragging the zip into content manager or by manually adding the app in the apps/lua folder.
+
+
+Requirements:
+1) Ensure you have CSP V0.2.0 atleast for this app to work.
