@@ -1,4 +1,3 @@
--- Runs once on session start/restart
 _HEMS_Log = {}
 ac.onSessionStart(function(sessionIndex, restarted)
     if restarted then
@@ -13,27 +12,22 @@ function script.windowMain(dt)
     local saveToFile = 0
     for driverA = 0, ac.getSim().carsCount - 1, 1 do
         local driverName = ac.getDriverName(driverA)
-        ui.text(driverName)
         local currentLap = ac.getCar(driverA).lapCount
         if _HEMS_Log[driverName]["Summary"]["Laps"] ~= currentLap then
             saveToFile = 1
             _HEMS_Log[driverName]["Summary"]["Laps"] = currentLap
         end
     end
-    -- ReasHEMSLog()
-    -- ui.text(JSON.stringify(_HEMS_Log))
-    if saveToFile then 
+    if saveToFile == 1 then 
         SaveHEMSLog(JSON.stringify(_HEMS_Log))
     end
 end
 
--- Runs once per frame
 function script.update(dt)
     logsKers()
 end
 
 
--- Runs once on session start/restart
 ac.onSessionStart(function(sessionIndex, restarted)
     if restarted then
         _HEMS_Log = {}
@@ -100,6 +94,7 @@ end
 
 function GetFilePath() 
     local logFolder = ac.getFolder(ac.FolderID.RaceResults)
-    local filePath = logFolder .. "\\" .. ac.getSession(0).startTime .. ".json"
+    ac.log(logFolder)
+    local filePath = ".\\" .. ac.getSession(0).startTime .. ".json"
     return filePath
 end
